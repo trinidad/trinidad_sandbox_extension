@@ -31,4 +31,23 @@ describe Trinidad::Extensions::SandboxServerExtension do
 
     @tomcat.host.findChildren().first.privileged.should be_true
   end
+
+  it 'adds the sandbox servlet to the application context' do
+    app_ctx = subject.create_application_context(@tomcat, subject.prepare_options)
+    children = app_ctx.findChildren().map {|c| c.name}
+    children.should include('sandboxServlet')
+  end
+
+  it 'adds provided credentials to the servlet context' do
+    opts = subject.prepare_options
+    opts[:username] = 'foo'
+    opts[:password] = 'bar'
+
+    ext = Trinidad::Extensions::SandboxServerExtension.new(opts)
+
+    app_ctx = ext.create_application_context(@tomcat, opts)
+
+    app_ctx.servlet_context.getAttribute('sandbox_username').should == 'foo'
+    app_ctx.servlet_context.getAttribute('sandbox_password').should == 'bar'    
+  end
 end

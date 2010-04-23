@@ -17,13 +17,7 @@ module Trinidad
       def configure(tomcat)
         opts = prepare_options
 
-        app_ctx = tomcat.addWebapp(opts[:context_path], opts[:web_app_dir])
-        app_ctx.privileged = true
-
-        servlet = tomcat.addServlet(app_ctx, 'sandboxServlet', 'org.jruby.trinidad.SandboxRackServlet')
-        servlet.setLoadOnStartup(1)
-
-        app_ctx.addServletMapping('/*', 'sandboxServlet')
+        app_ctx = create_application_context(tomcat, opts)
 
         web_app = Trinidad::RackupWebApp.new(app_ctx, {}, opts)
 
@@ -47,6 +41,22 @@ module Trinidad
         opts[:rackup] = 'lib/trinidad_sandbox_extension/config.ru'
         opts[:web_app_dir] = File.expand_path('../..', __FILE__)
         opts
+      end
+
+      def create_application_context(tomcat, opts)
+        app_ctx = tomcat.addWebapp(opts[:context_path], opts[:web_app_dir])
+        app_ctx.privileged = true
+
+        servlet = tomcat.addServlet(app_ctx, 'sandboxServlet', 'org.jruby.trinidad.SandboxRackServlet')
+        servlet.setLoadOnStartup(1)
+
+        if opts[:username] && opts[:password]
+          app_ctx.servlet_context.setAttribute("sandbox_username", opts[:username].to_s);
+          app_ctx.servlet_context.setAttribute("sandbox_password", opts[:password].to_s);
+        end
+
+        app_ctx.addServletMapping('/*', 'sandboxServlet')
+        app_ctx
       end
     end
   end

@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
   s.add_dependency('sinatra')
+  s.add_dependency('sinatra-authorization')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
@@ -60,6 +61,9 @@ Gem::Specification.new do |s|
     lib/trinidad_sandbox_extension/sandbox_app.rb
     lib/trinidad_sandbox_extension/views/index.haml
     lib/trinidad_sandbox_extension/views/layout.haml
+    spec/spec.opts
+    spec/spec_helper.rb
+    spec/trinidad_sandbox_extension_spec.rb
     trinidad_sandbox_extension.gemspec
     trinidad-libs/trinidad-sandbox-extension.jar
   ]

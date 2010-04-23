@@ -12,7 +12,6 @@ list of the applications loaded on Trinidad.
 
 sorted by priorities
 
-* Authentication (sinatra/authentication)
 * Buttons to start/stop applications
 * UI
 * REST api
