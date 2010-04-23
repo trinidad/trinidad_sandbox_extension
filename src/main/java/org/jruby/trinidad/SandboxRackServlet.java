@@ -32,7 +32,7 @@ public class SandboxRackServlet extends RackServlet implements ContainerServlet 
     public void init(ServletConfig config) {
         ServletContext servletContext = config.getServletContext();
         servletContext.setAttribute("tomcat_host", host);
-        servletContext.setAttribute("tomcat_context", context);
+        servletContext.setAttribute("sandbox_context", context);
         super.init(config);
     }
 }
