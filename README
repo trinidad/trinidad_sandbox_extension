@@ -1,0 +1,19 @@
+Trinidad sandbox extension
+======
+
+# DESCRIPTION
+
+Extension to allow manage the applications deployed on Trinidad, ala Tomcat manager.
+
+This extension is in an early development stage and right now just shows you a
+list of the applications loaded on Trinidad.
+
+# TODO
+
+sorted by priorities
+
+* Authentication (sinatra/authentication)
+* Buttons to start/stop applications
+* UI
+* REST api
+* Capistrano recipes to do hot deploys
