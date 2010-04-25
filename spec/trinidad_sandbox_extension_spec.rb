@@ -33,9 +33,8 @@ describe Trinidad::Extensions::SandboxServerExtension do
   end
 
   it 'adds the sandbox servlet to the application context' do
-    app_ctx = subject.create_application_context(@tomcat, subject.prepare_options)
-    children = app_ctx.findChildren().map {|c| c.name}
-    children.should include('sandboxServlet')
+    app = subject.configure(@tomcat)
+    app.context.findChild('SandboxServlet').should_not be_nil
   end
 
   it 'adds provided credentials to the servlet context' do

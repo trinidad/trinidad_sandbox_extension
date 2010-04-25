@@ -21,11 +21,12 @@ module Trinidad
 
         web_app = Trinidad::RackupWebApp.new(app_ctx, {}, opts)
 
+        web_app.configure_rack('org.jruby.trinidad.SandboxRackServlet', 'SandboxServlet')
         web_app.add_context_loader
         web_app.add_init_params
-        web_app.add_web_dir_resources
 
         web_app.add_rack_context_listener
+        web_app
       end
 
       def prepare_options
@@ -47,15 +48,11 @@ module Trinidad
         app_ctx = tomcat.addWebapp(opts[:context_path], opts[:web_app_dir])
         app_ctx.privileged = true
 
-        servlet = tomcat.addServlet(app_ctx, 'sandboxServlet', 'org.jruby.trinidad.SandboxRackServlet')
-        servlet.setLoadOnStartup(1)
-
         if opts[:username] && opts[:password]
           app_ctx.servlet_context.setAttribute("sandbox_username", opts[:username].to_s);
           app_ctx.servlet_context.setAttribute("sandbox_password", opts[:password].to_s);
         end
 
-        app_ctx.addServletMapping('/*', 'sandboxServlet')
         app_ctx
       end
     end

@@ -1,5 +1,7 @@
 require 'rubygems'
 
+gem 'trinidad_jars'
+require 'trinidad/jars'
 require 'trinidad_sandbox_extension'
 require 'trinidad_sandbox_extension/sandbox_app'
 
@@ -11,4 +13,4 @@ class Sinatra::Reloader < ::Rack::Reloader
 end
 #use Sinatra::Reloader
 
-run SandboxApp
+run Trinidad::Sandbox::App
