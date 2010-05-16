@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'trinidad_sandbox_extension'
   s.version           = '0.1.0'
-  s.date              = '2010-05-15'
+  s.date              = '2010-05-16'
   s.rubyforge_project = 'trinidad_sandbox_extension'
 
   ## Make sure your summary is short. The description may be as long
@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
 
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
-  ['sinatra', 'sinatra-authorization', 'sinatra-respond_to'].each do |dep|
+  ['sinatra', 'sinatra-authorization', 'sinatra-respond_to', 'sinatra-flash'].each do |dep|
     s.add_dependency(dep)
   end
 
@@ -61,6 +61,7 @@ Gem::Specification.new do |s|
     lib/trinidad_sandbox_extension/app/helpers/sandbox.rb
     lib/trinidad_sandbox_extension/app/model/application_context.rb
     lib/trinidad_sandbox_extension/app/sandbox.rb
+    lib/trinidad_sandbox_extension/app/views/app.html.haml
     lib/trinidad_sandbox_extension/app/views/app.xml.haml
     lib/trinidad_sandbox_extension/app/views/index.html.haml
     lib/trinidad_sandbox_extension/app/views/index.xml.haml

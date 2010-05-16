@@ -1,3 +1,5 @@
-%ul
-  - @applications.each do |app|
-    %li= app.name
+.applications
+  %ul
+    - @applications.each do |app|
+      %li
+        %a(href = "#{app.self_path}")= app.name

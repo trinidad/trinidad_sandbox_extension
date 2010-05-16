@@ -3,7 +3,7 @@
   %available= app.available
   - app.actions.each do |action|
     %link(rel = "#{action[:rel]}" href = "#{action[:href]}")
-  - if app.find_parameters
+  - if app.parameters
     %context-parameters
-      - app.find_parameters.each do |param_name|
+      - app.parameters.each do |param_name|
         %parameter(name = "#{param_name}" value = "#{app.find_parameter(param_name)}")

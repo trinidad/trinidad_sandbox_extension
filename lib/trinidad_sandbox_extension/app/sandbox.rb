@@ -4,6 +4,9 @@ require 'haml'
 require File.expand_path('../helpers/sandbox', __FILE__)
 require File.expand_path('../model/application_context', __FILE__)
 require 'sinatra/respond_to'
+require 'sinatra/flash'
+
+enable :sessions
 
 set :views, File.expand_path('../views', __FILE__)
 
@@ -28,16 +31,20 @@ get '/apps' do
   end
 end
 
+get '/apps/:name' do
+  @app = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  context_not_found(params[:name]) unless @app
+
+  respond_to do |wants|
+    wants.html { haml :app }
+    wants.xml { haml :app }
+  end
+end
+
 post '/apps/:name/stop' do
   context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
 
-  unless context
-    $servlet_context.log "context not found: #{params[:name]}"
-    respond_to do |wants|
-      wants.html { redirect sandbox_context.path }
-      wants.xml { status 404 }
-    end
-  end
+  context_not_found(params[:name]) unless context
 
   if context.name == sandbox_context.name
     $servet_context.log "can't stop the sandbox application"
@@ -59,13 +66,7 @@ end
 post '/apps/:name/start' do
   context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
 
-  unless context
-    $servlet_context.log "context not found: #{params[:name]}"
-    respond_to do |wants|
-      wants.html { redirect sandbox_context.path }
-      wants.xml { status 404 }
-    end
-  end
+  context_not_found(params[:name]) unless context
 
   context.start
   if context.available == true

@@ -1,4 +1,3 @@
-require 'ostruct'
 require 'delegate'
 require 'cgi'
 
@@ -31,7 +30,7 @@ module Trinidad
       end
 
       def self_path
-        "#{ApplicationContext.sandbox_context.path}/apps/#{slug}"
+        @self_path ||= "#{ApplicationContext.sandbox_context.path}/apps/#{slug}"
       end
 
       def actions
@@ -39,6 +38,10 @@ module Trinidad
           {:rel => 'start', :href => "#{self_path}/start"},
           {:rel => 'stop', :href => "#{self_path}/stop"}
         ]
+      end
+
+      def parameters
+        @parameters ||= find_parameters
       end
     end
   end

@@ -32,6 +32,15 @@ module Trinidad
           @sandbox_context ||= $servlet_context.getAttribute('sandbox_context')
         end
 
+        def context_not_found(name)
+          flash[:warning] = "application not found: #{name}"
+          $servlet_context.log "application not found: #{name}"
+          respond_to do |wants|
+            wants.html { redirect sandbox_context.path }
+            wants.xml { status 404 }
+          end
+        end
+
         def host
           $servlet_context.getAttribute('tomcat_host')
         end

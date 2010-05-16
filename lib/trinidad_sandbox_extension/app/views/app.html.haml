@@ -1,0 +1,7 @@
+.application
+  %h2= app.name
+  - if app.parameters
+    %dl
+      - app.parameters.each do |param_name|
+        %dt= param_name
+        %dd= app.find_parameter(param_name)
