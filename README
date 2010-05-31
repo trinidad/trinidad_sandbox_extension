@@ -3,16 +3,46 @@ Trinidad sandbox extension
 
 # DESCRIPTION
 
-Extension to allow manage the applications deployed on Trinidad, ala Tomcat manager.
+Trinidad's management console and REST api.
 
-This extension is in an early development stage and right now just shows you a
-list of the applications loaded on Trinidad.
+This extension adds a management console to a Trinidad's instance moreover a rest api to access the applications running on top of it.
+
+
+# INSTALL
+
+jruby -S gem install trinidad_sandbox_extension
+
+# CONFIGURATION
+
+The extension has to be added within the section "extensions" into the Trinidad's configuration file:
+
+---
+  extensions:
+    sandbox:
+
+This extension is also a Sinatra web application running on top of Trinidad, so any application configuration parameter is also valid here.
+For instance, we can modify the context path where is running the console:
+
+---
+  extensions:
+    sandbox:
+      context_path: management # by default the context path is sandbox
+
+It also supports basic authentication, we'll have to specify the username and password within our section:
+
+---
+  extensions:
+    sandbox:
+      username: manager
+      password: XXXXXXX
+
+# FEATURES
+
+The console as well as the REST api allow to list all the applications managed by that Trinidad's instance and start/stop them.
+By security reasons the sandbox application is not listed nor can be stopped.
+
 
 # TODO
 
-sorted by priorities
-
-* Buttons to start/stop applications
-* UI
-* REST api
-* Capistrano recipes to do hot deploys
+This can be the starting point to a real management console, we could modify application parameters, show statistics...
+Any improvement or redesign in the UI is welcome.
