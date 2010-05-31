@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'trinidad_sandbox_extension'
   s.version           = '0.1.0'
-  s.date              = '2010-05-16'
+  s.date              = '2010-05-31'
   s.rubyforge_project = 'trinidad_sandbox_extension'
 
   ## Make sure your summary is short. The description may be as long
@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
     lib/trinidad_sandbox_extension.rb
     lib/trinidad_sandbox_extension/app/helpers/sandbox.rb
     lib/trinidad_sandbox_extension/app/model/application_context.rb
+    lib/trinidad_sandbox_extension/app/public/css/main.css
     lib/trinidad_sandbox_extension/app/sandbox.rb
     lib/trinidad_sandbox_extension/app/views/app.html.haml
     lib/trinidad_sandbox_extension/app/views/app.xml.haml

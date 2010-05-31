@@ -8,7 +8,6 @@ app_path = $servlet_context.get_real_path('app/sandbox.rb')
 require app_path
 
 set :environment, :development
-set :public, File.expand_path('../public', __FILE__)
 set :app_file, app_path
 disable :run
 

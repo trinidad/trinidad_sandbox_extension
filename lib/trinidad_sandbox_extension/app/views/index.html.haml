@@ -1,5 +1,6 @@
 .applications
-  %ul
+  %ul(id="applications")
     - @applications.each do |app|
       %li
-        %a(href = "#{app.self_path}")= app.name
+        %a(href = "#{app.self_path}" class="app_name")= app.name
+        = haml :actions, :locals => {:app => app}, :layout => false

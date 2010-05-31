@@ -1,0 +1,133 @@
+/* Reset */
+
+ul {
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: list-item;
+}
+
+/* End: Reset */
+
+
+body {
+  font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+  font-size:10.5pt;
+  color:#222222;
+  background: #333333;
+  margin: 0;
+}
+
+a {
+  color: #617fc3;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #395490;
+}
+
+h1 {
+  font-family: Helvetica, Arial, Sans-Serif;
+  letter-spacing: -0.03em;
+  color:#CCCCCC;
+  font-size:3em;
+  margin-top:2em;
+  margin-bottom:0;
+}
+
+h2 {
+  color:#CCCCCC;
+  font-size: 3em;
+}
+
+#title {
+  font-family: Helvetica, Arial, Sans-Serif;
+  letter-spacing:-0.07em;
+  text-align: left;
+  font-size:1.7em;
+  margin-left: .7em;
+  margin-bottom: 1.5em;
+  color:#666666;
+}
+
+#title h1 {
+  font-size:3em;
+  line-height:0.5em;
+  margin: 0;
+  margin-bottom: -0.05em;
+}
+
+#content {
+  line-height: 1.5em;
+  margin-bottom: 1em;
+  margin-right:-0.5em;
+}
+
+.site {
+  width:45em;
+  margin: 0 auto;
+  padding: 5em 5em;
+  background: #F5F5F5;
+}
+
+#parameters {
+  background: black;
+  color: white;
+  font-size: 0.9em;
+  max-height: 50em;
+  overflow: auto;
+  margin: 0.5em;
+  padding: 0.5em;
+  line-height: 2em;
+}
+
+.ack {
+  padding-top: 1em;
+  float: right;
+  font-size: 9pt;
+}
+
+.note {
+  background-color: #ffffcc;
+  border: solid 1px #ffff76;
+  
+  padding: 1em;
+}
+
+#content #applications {
+  margin: 1em 0px 2em;
+  border-top: 1px solid silver;
+}
+
+#content #applications li {
+  border-bottom: 1px solid silver;
+  position: relative;
+}
+
+.app_name {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 0.25em;
+}
+
+.actions {
+  font-size: 0.8em;
+  position: absolute;
+  right: 0.6em;
+  text-align: right;
+  top: 1.5em;
+}
+
+.application {
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
+  position: relative;
+}

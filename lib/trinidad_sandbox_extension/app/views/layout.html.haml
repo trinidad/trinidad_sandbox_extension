@@ -1,6 +1,12 @@
 %html
   %head
     %title Trinidad's sandbox
+    %link(rel="stylesheet" href="/sandbox/css/main.css" type="text/css")
   %body
-    = styled_flash
-    = yield
+    .site
+      #title
+        %h1 Trinidad's sandbox
+      #content
+        %div
+          = styled_flash
+          = yield

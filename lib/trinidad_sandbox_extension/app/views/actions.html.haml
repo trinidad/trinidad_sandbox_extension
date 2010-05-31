@@ -1,0 +1,7 @@
+.actions
+  - if app.available
+    %form(method="post" action="#{app.self_path}/stop")
+      %button(type="submit") Stop
+  - else
+    %form(method="post" action="#{app.self_path}/start")
+      %button(type="submit") Start
