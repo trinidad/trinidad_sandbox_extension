@@ -80,3 +80,31 @@ post '/apps/:name/start' do
     wants.xml { status 204 }
   end
 end
+
+post '/apps/:name/redeploy' do
+  context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  
+  context_not_found(params[:name]) unless context
+
+  web_app_dir = params[:web_app_dir]
+  if web_app_dir.nil?
+    flash[:warning] = "No web_app_dir param provided. Can not redeploy."
+    $servlet_context.log "No web_app_dir param provided. Can not redeploy."
+    respond_to do |wants|
+      wants.html { redirect sandbox_context.path }
+      wants.xml { status 404 }
+    end
+  end
+
+  context.stop
+  $servlet_context.log "#{context.name} stopped"
+  context.setDocBase(web_app_dir)
+  $servlet_context.log "#{context.name} web_app_dir set to #{web_app_dir}"
+  context.start
+  $servlet_context.log "#{context.name} started successfully"
+
+  respond_to do |wants|
+    wants.html { redirect sandbox_context.path }
+    wants.xml { status 204 }
+  end
+end
