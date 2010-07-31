@@ -6,7 +6,7 @@ require File.expand_path('../../trinidad-libs/trinidad-sandbox-extension', __FIL
 module Trinidad
   module Extensions
     class SandboxServerExtension < ServerExtension
-      VERSION = '0.1.0'
+      VERSION = '0.2.0'
 
       def configure(tomcat)
         opts = prepare_options

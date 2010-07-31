@@ -1,0 +1,9 @@
+== 0.2.0 (2010-07-31)
+
+* Support for redeploy applications
+* Upgrade to Tomcat 7
+
+== 0.1.0 (2010-05-30)
+
+* Initial release
+* Support for start/stop applications
