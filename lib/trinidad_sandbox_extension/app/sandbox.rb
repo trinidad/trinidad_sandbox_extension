@@ -96,12 +96,7 @@ post '/apps/:name/redeploy' do
     end
   end
 
-  context.stop
-  $servlet_context.log "#{context.name} stopped"
-  context.setDocBase(web_app_dir)
-  $servlet_context.log "#{context.name} web_app_dir set to #{web_app_dir}"
-  context.start
-  $servlet_context.log "#{context.name} started successfully"
+  context.reload
 
   respond_to do |wants|
     wants.html { redirect sandbox_context.path }

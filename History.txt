@@ -1,3 +1,7 @@
+== 0.3.0 (2010-10-06)
+
+* Reload improved
+
 == 0.2.0 (2010-07-31)
 
 * Support for redeploy applications
