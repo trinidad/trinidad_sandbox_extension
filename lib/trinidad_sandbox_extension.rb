@@ -27,7 +27,8 @@ module Trinidad
           :jruby_max_runtimes => 2,
           :libs_dir => 'libs',
           :classes_dir => 'classes',
-          :public => 'app/public'
+          :public => 'app/public',
+          :environment => 'production'
         }
 
         opts.deep_merge!(@options)
