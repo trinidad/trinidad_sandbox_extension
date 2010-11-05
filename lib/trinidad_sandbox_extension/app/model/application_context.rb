@@ -36,7 +36,8 @@ module Trinidad
       def actions
         [
           {:rel => 'start', :href => "#{self_path}/start"},
-          {:rel => 'stop', :href => "#{self_path}/stop"}
+          {:rel => 'stop', :href => "#{self_path}/stop"},
+          {:rel => 'redeploy', :href => "#{self_path}/redeploy"}
         ]
       end
 
