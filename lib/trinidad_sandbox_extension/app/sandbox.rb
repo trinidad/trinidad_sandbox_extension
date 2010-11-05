@@ -12,7 +12,7 @@ set :views, File.expand_path('../views', __FILE__)
 
 Sinatra::Application.register Sinatra::RespondTo
 
-helpers { 
+helpers {
   include Trinidad::Sandbox::Helpers::Auth
   include Trinidad::Sandbox::Helpers::Context
 }
@@ -83,18 +83,8 @@ end
 
 post '/apps/:name/redeploy' do
   context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
-  
-  context_not_found(params[:name]) unless context
 
-  web_app_dir = params[:web_app_dir]
-  if web_app_dir.nil?
-    flash[:warning] = "No web_app_dir param provided. Can not redeploy."
-    $servlet_context.log "No web_app_dir param provided. Can not redeploy."
-    respond_to do |wants|
-      wants.html { redirect sandbox_context.path }
-      wants.xml { status 404 }
-    end
-  end
+  context_not_found(params[:name]) unless context
 
   context.reload
 
