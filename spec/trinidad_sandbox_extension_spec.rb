@@ -34,7 +34,12 @@ describe Trinidad::Extensions::SandboxServerExtension do
 
   it 'adds the sandbox servlet to the application context' do
     app = subject.configure(@tomcat)
-    app.context.findChild('SandboxServlet').should_not be_nil
+    context = @tomcat.host.findChildren().first
+    listener = context.find_lifecycle_listeners.select do |l|
+      l.instance_of?(Trinidad::Lifecycle::Default)
+    end.first
+    listener.configure_defaults(context)
+    context.findChild('SandboxServlet').should_not be_nil
   end
 
   it 'adds provided credentials to the servlet context' do
@@ -47,6 +52,6 @@ describe Trinidad::Extensions::SandboxServerExtension do
     app_ctx = ext.create_application_context(@tomcat, opts)
 
     app_ctx.servlet_context.getAttribute('sandbox_username').should == 'foo'
-    app_ctx.servlet_context.getAttribute('sandbox_password').should == 'bar'    
+    app_ctx.servlet_context.getAttribute('sandbox_password').should == 'bar'
   end
 end

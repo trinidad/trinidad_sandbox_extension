@@ -16,7 +16,7 @@ module Trinidad
         web_app = Trinidad::RackupWebApp.new({}, opts,
           'org.jruby.trinidad.SandboxRackServlet', 'SandboxServlet')
 
-        app_context.add_lifecycle_listener(WebAppLifecycleListener.new(web_app))
+        app_context.add_lifecycle_listener(Trinidad::Lifecycle::Default.new(web_app))
         web_app
       end
 
