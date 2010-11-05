@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'trinidad_sandbox_extension'
-  s.version           = '0.3.0'
-  s.date              = '2010-10-06'
+  s.version           = '0.4.0'
+  s.date              = '2010-11-05'
   s.rubyforge_project = 'trinidad_sandbox_extension'
 
   ## Make sure your summary is short. The description may be as long
@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
 
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
+  s.add_dependency('trinidad', '>=1.0.1')
   ['sinatra', 'sinatra-authorization', 'sinatra-respond_to', 'sinatra-flash', 'haml'].each do |dep|
     s.add_dependency(dep)
   end

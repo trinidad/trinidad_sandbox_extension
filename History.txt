@@ -1,3 +1,9 @@
+== 0.4.0 (2010-11-05)
+
+* Fix compatibility problems with Trinidad 1.0
+* Add redeploy link to the api
+* Fix action links format for xml documents
+
 == 0.3.0 (2010-10-06)
 
 * Reload improved
