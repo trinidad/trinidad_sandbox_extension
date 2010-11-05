@@ -2,7 +2,7 @@
   %name= app.name
   %available= app.available
   - app.actions.each do |action|
-    %link(rel = "#{action[:rel]}" href = "#{action[:href]}")
+    %link(rel = "#{action[:rel]}" href = "#{action[:href]}.xml")
   - if app.parameters
     %context-parameters
       - app.parameters.each do |param_name|
