@@ -1,6 +1,7 @@
 %application
   %name= app.name
   %available= app.available
+  %link(rel = "edit" href = "#{app.self_path}.xml")
   - app.actions.each do |action|
     %link(rel = "#{action[:rel]}" href = "#{action[:href]}.xml")
   - if app.parameters
