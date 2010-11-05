@@ -2,6 +2,8 @@
   - if app.available
     %form(method="post" action="#{app.self_path}/stop")
       %button(type="submit") Stop
+    %form(method="post" action="#{app.self_path}/redeploy")
+      %button(type="submit") Redeploy
   - else
     %form(method="post" action="#{app.self_path}/start")
       %button(type="submit") Start

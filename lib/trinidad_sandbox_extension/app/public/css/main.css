@@ -126,6 +126,10 @@ h2 {
   top: 1.5em;
 }
 
+.actions form {
+  display: inline;
+}
+
 .application {
   border-top: 1px solid silver;
   border-bottom: 1px solid silver;
