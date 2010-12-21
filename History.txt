@@ -1,3 +1,7 @@
+== 0.4.2 (2010-12-21)
+
+* Fix application name when the context path is an empty string
+
 == 0.4.1 (2010-11-05)
 
 * Add redeploy button
