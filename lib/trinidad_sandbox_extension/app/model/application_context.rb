@@ -31,8 +31,10 @@ module Trinidad
 
       def slug
         @slug ||= CGI.escape(name.sub('/', ''))
-        @slug = 'default' if @slug.empty?
-        @slug
+      end
+
+      def name
+        @name ||= super.empty? ? 'default' : super
       end
 
       def self_path
