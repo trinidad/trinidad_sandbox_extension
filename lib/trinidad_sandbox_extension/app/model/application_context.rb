@@ -37,6 +37,10 @@ module Trinidad
         @name ||= super.empty? ? 'default' : super
       end
 
+      def path
+        @path ||= super.empty? ? '/' : super
+      end
+
       def self_path
         @self_path ||= "#{ApplicationContext.sandbox_context.path}/apps/#{slug}"
       end
