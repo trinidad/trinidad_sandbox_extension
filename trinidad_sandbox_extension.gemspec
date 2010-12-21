@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'trinidad_sandbox_extension'
   s.version           = '0.4.1'
-  s.date              = '2010-11-05'
+  s.date              = '2010-12-21'
   s.rubyforge_project = 'trinidad_sandbox_extension'
 
   ## Make sure your summary is short. The description may be as long
@@ -47,7 +47,7 @@ Gem::Specification.new do |s|
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
-  s.add_development_dependency('rspec')
+  s.add_development_dependency('rspec', '>=2.2')
   s.add_development_dependency('mocha')
 
   ## Leave this section as-is. It will be automatically generated from the
