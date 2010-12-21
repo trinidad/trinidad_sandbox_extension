@@ -16,8 +16,11 @@ module Trinidad
       end
 
       def self.find(name)
-        name = '/' + name unless name[0..1] == '/'
-        path = CGI.unescape(name)
+        escaped_name = ''
+        unless name == 'default'
+          escaped_name = '/' + name unless name[0..1] == '/'
+        end
+        path = CGI.unescape(escaped_name)
         context = host.findChild(path)
         ApplicationContext.new(context) if context
       end
@@ -28,6 +31,8 @@ module Trinidad
 
       def slug
         @slug ||= CGI.escape(name.sub('/', ''))
+        @slug = 'default' if @slug.empty?
+        @slug
       end
 
       def self_path
