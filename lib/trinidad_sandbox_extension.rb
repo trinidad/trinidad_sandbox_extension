@@ -49,5 +49,12 @@ module Trinidad
         app_ctx
       end
     end
+
+    class SandboxOptionsExtension < OptionsExtension
+      def configure(parser, default_options)
+        default_options[:extensions] ||= {}
+        default_options[:extensions][:sandbox] = {}
+      end
+    end
   end
 end
