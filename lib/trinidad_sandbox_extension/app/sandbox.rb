@@ -107,7 +107,7 @@ get '/deploy' do
     Grit::Git.new(dest).clone({:branch => branch}, repo_url, dest)
   end
 
-  ApplicationContext.create(path, dest)
+  Trinidad::Sandbox::ApplicationContext.create(path, dest)
 
   respond_to do |wants|
     wants.html { redirect sandbox_context.path }

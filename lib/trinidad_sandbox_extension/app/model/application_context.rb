@@ -1,5 +1,6 @@
 require 'delegate'
 require 'cgi'
+require 'trinidad'
 
 require File.expand_path('../../helpers/sandbox', __FILE__)
 
@@ -30,7 +31,7 @@ module Trinidad
           :jruby_min_runtimes => 1,
           :jruby_max_runtimes => 1
         }, {
-          :context_path => "/#{url}",
+          :context_path => (url == 'default' ? '' : "/#{url}"),
           :web_app_dir => path
         })
 
