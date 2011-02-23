@@ -5,6 +5,8 @@ require File.expand_path('../helpers/sandbox', __FILE__)
 require File.expand_path('../model/application_context', __FILE__)
 require 'sinatra/respond_to'
 require 'sinatra/flash'
+require 'grit'
+require 'trinidad'
 
 enable :sessions
 
@@ -91,5 +93,45 @@ post '/apps/:name/redeploy' do
   respond_to do |wants|
     wants.html { redirect sandbox_context.path }
     wants.xml { status 204 }
+  end
+end
+
+get '/deploy' do
+  repo_url = params[:repo]
+  branch = params[:branch] || 'master'
+  path = params[:path] || repo_url.split('/').last.sub('.git', '')
+
+  apps_path = host.app_base
+  dest = File.expand_path(path, apps_path)
+
+  Grit::Git.with_timeout(1000) do
+    Grit::Git.new(dest).clone({:branch => branch}, repo_url, dest)
+  end
+
+  web_app = Trinidad::WebApp.create({
+    :jruby_min_runtimes => 1,
+    :jruby_max_runtimes => 1
+  }, {
+    :context_path => "/#{path}",
+    :web_app_dir => path
+  })
+
+  context = Trinidad::Tomcat::StandardContext.new
+  context.path = web_app.context_path
+  context.doc_base = web_app.web_app_dir
+
+  context.add_lifecycle_listener Trinidad::Tomcat::Tomcat::DefaultWebXmlListener.new
+
+  config = Trinidad::Tomcat::ContextConfig.new
+  config.default_web_xml = 'org/apache/catalin/startup/NO_DEFAULT_XML'
+  context.add_lifecycle_listener config
+
+  context.add_lifecycle_listener Trinidad::Lifecycle::Default.new(web_app)
+
+  host.add_child context
+
+  respond_to do |wants|
+    wants.html { redirect sandbox_context.path }
+    wants.xml { status 201 }
   end
 end
