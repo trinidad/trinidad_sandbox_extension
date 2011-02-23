@@ -25,6 +25,32 @@ module Trinidad
         ApplicationContext.new(context) if context
       end
 
+      def self.create(url, path)
+        web_app = Trinidad::WebApp.create({
+          :jruby_min_runtimes => 1,
+          :jruby_max_runtimes => 1
+        }, {
+          :context_path => "/#{url}",
+          :web_app_dir => path
+        })
+
+        context = Trinidad::Tomcat::StandardContext.new
+        context.path = web_app.context_path
+        context.doc_base = web_app.web_app_dir
+
+        context.add_lifecycle_listener Trinidad::Tomcat::Tomcat::DefaultWebXmlListener.new
+
+        config = Trinidad::Tomcat::ContextConfig.new
+        config.default_web_xml = 'org/apache/catalin/startup/NO_DEFAULT_XML'
+        context.add_lifecycle_listener config
+
+        context.add_lifecycle_listener Trinidad::Lifecycle::Default.new(web_app)
+
+        host.add_child context
+
+        ApplicationContext.new(context)
+      end
+
       def initialize(context)
         super(context)
       end
