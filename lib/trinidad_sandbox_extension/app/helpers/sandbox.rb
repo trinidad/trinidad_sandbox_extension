@@ -34,14 +34,14 @@ module Trinidad
         def context_not_found(name)
           flash[:warning] = "application not found: #{name}"
           $servlet_context.log "application not found: #{name}"
-          respond_to_home 404
+          redirect_to_home 404
         end
 
         def repo_not_found
           message = "the git repository is a mandatory parameter"
           flash[:warning] = message
           $servlet_context.log message
-          respond_to_home 400
+          redirect_to_home 400
         end
 
         def host
