@@ -46,6 +46,14 @@ h2 {
   font-size: 3em;
 }
 
+nav, section {
+  display: block;
+}
+
+#menu {
+  margin-left: 2em;
+}
+
 #title {
   font-family: Helvetica, Arial, Sans-Serif;
   letter-spacing:-0.07em;

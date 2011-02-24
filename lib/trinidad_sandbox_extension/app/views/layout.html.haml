@@ -7,6 +7,13 @@
       #title
         %h1 Trinidad's sandbox
       #content
-        %div
-          = styled_flash
-          = yield
+        %section(id="menu")
+          %div
+            %nav
+              %a(href="apps") Applications
+              |
+              %a(href="deploy") Deploy
+        %section
+          %div
+            = styled_flash
+            = yield
