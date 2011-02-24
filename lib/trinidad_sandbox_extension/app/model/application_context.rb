@@ -26,6 +26,12 @@ module Trinidad
         ApplicationContext.new(context) if context
       end
 
+      def self.find_by_doc_base(base)
+        if (apps = host.find_children)
+          apps.select {|app| app.doc_base == base}.first
+        end
+      end
+
       def self.create(url, path)
         web_app = Trinidad::WebApp.create({
           :jruby_min_runtimes => 1,

@@ -5,7 +5,8 @@ require File.expand_path('../helpers/sandbox', __FILE__)
 require File.expand_path('../model/application_context', __FILE__)
 require 'sinatra/respond_to'
 require 'sinatra/flash'
-require 'grit'
+
+include Trinidad::Sandbox
 
 enable :sessions
 
@@ -14,8 +15,9 @@ set :views, File.expand_path('../views', __FILE__)
 Sinatra::Application.register Sinatra::RespondTo
 
 helpers {
-  include Trinidad::Sandbox::Helpers::Auth
-  include Trinidad::Sandbox::Helpers::Context
+  include Helpers::Auth
+  include Helpers::Context
+  include Helpers::Deploy
 }
 before { login_required }
 
@@ -24,7 +26,7 @@ get '/' do
 end
 
 get '/apps' do
-  @applications = Trinidad::Sandbox::ApplicationContext.all
+  @applications = ApplicationContext.all
 
   respond_to do |wants|
     wants.html  { haml :index }
@@ -33,7 +35,7 @@ get '/apps' do
 end
 
 get '/apps/:name' do
-  @app = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  @app = ApplicationContext.find(params[:name])
   context_not_found(params[:name]) unless @app
 
   respond_to do |wants|
@@ -43,29 +45,23 @@ get '/apps/:name' do
 end
 
 post '/apps/:name/stop' do
-  context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  context = ApplicationContext.find(params[:name])
 
   context_not_found(params[:name]) unless context
 
   if context.name == sandbox_context.name
     $servet_context.log "can't stop the sandbox application"
-    respond_to do |wants|
-      wants.html { redirect sandbox_context.path }
-      wants.xml { status 500 }
-    end
+    redirect_to_home 500
   end
 
   context.stop
   $servlet_context.log "#{context.name} stopped"
 
-  respond_to do |wants|
-    wants.html { redirect sandbox_context.path }
-    wants.xml { status 204 }
-  end
+  redirect_to_home 204
 end
 
 post '/apps/:name/start' do
-  context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  context = ApplicationContext.find(params[:name])
 
   context_not_found(params[:name]) unless context
 
@@ -76,41 +72,35 @@ post '/apps/:name/start' do
     $servlet_context.log "#{context.name} start failed"
   end
 
-  respond_to do |wants|
-    wants.html { redirect sandbox_context.path }
-    wants.xml { status 204 }
-  end
+  redirect_to_home 204
 end
 
 post '/apps/:name/redeploy' do
-  context = Trinidad::Sandbox::ApplicationContext.find(params[:name])
+  context = ApplicationContext.find(params[:name])
 
   context_not_found(params[:name]) unless context
 
   context.reload
 
-  respond_to do |wants|
-    wants.html { redirect sandbox_context.path }
-    wants.xml { status 204 }
-  end
+  redirect_to_home 204
 end
 
 get '/deploy' do
   repo_url = params[:repo]
+  repo_not_found unless repo_url
+
   branch = params[:branch] || 'master'
   path = params[:path] || repo_url.split('/').last.sub('.git', '')
 
-  apps_path = host.app_base
-  dest = File.expand_path(path, apps_path)
+  dest = File.expand_path(path, host.app_base)
 
-  Grit::Git.with_timeout(1000) do
-    Grit::Git.new(dest).clone({:branch => branch}, repo_url, dest)
+  status = if (deployed_app = ApplicationContext.find_by_doc_base(dest))
+    redeploy_application(deployed_app, repo_url, branch, dest)
+    204
+  else
+    deploy_new_application(path, repo_url, branch, dest)
+    201
   end
 
-  Trinidad::Sandbox::ApplicationContext.create(path, dest)
-
-  respond_to do |wants|
-    wants.html { redirect sandbox_context.path }
-    wants.xml { status 201 }
-  end
+  redirect_to_home status
 end

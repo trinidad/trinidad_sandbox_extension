@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
     README
     Rakefile
     lib/trinidad_sandbox_extension.rb
+    lib/trinidad_sandbox_extension/app/helpers/deploy.rb
     lib/trinidad_sandbox_extension/app/helpers/sandbox.rb
     lib/trinidad_sandbox_extension/app/model/application_context.rb
     lib/trinidad_sandbox_extension/app/public/css/main.css

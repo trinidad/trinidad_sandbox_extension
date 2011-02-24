@@ -1,4 +1,3 @@
-
 module Trinidad
   module Sandbox
     module Helpers
@@ -35,14 +34,25 @@ module Trinidad
         def context_not_found(name)
           flash[:warning] = "application not found: #{name}"
           $servlet_context.log "application not found: #{name}"
-          respond_to do |wants|
-            wants.html { redirect sandbox_context.path }
-            wants.xml { status 404 }
-          end
+          respond_to_home 404
+        end
+
+        def repo_not_found
+          message = "the git repository is a mandatory parameter"
+          flash[:warning] = message
+          $servlet_context.log message
+          respond_to_home 400
         end
 
         def host
           $servlet_context.getAttribute('tomcat_host')
+        end
+
+        def redirect_to_home(status_code)
+          respond_to do |wants|
+            wants.html { redirect sandbox_context.path }
+            wants.xml { status status_code }
+          end
         end
       end
     end
