@@ -41,7 +41,10 @@ module Trinidad
           message = "the git repository is a mandatory parameter"
           flash[:warning] = message
           $servlet_context.log message
-          redirect_to_home 400
+          respond_to do |wants|
+            wants.html { haml :deploy }
+            wants.xml { status 400 }
+          end
         end
 
         def host

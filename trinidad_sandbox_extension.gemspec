@@ -68,6 +68,7 @@ Gem::Specification.new do |s|
     lib/trinidad_sandbox_extension/app/views/actions.html.haml
     lib/trinidad_sandbox_extension/app/views/app.html.haml
     lib/trinidad_sandbox_extension/app/views/app.xml.haml
+    lib/trinidad_sandbox_extension/app/views/deploy.html.haml
     lib/trinidad_sandbox_extension/app/views/index.html.haml
     lib/trinidad_sandbox_extension/app/views/index.xml.haml
     lib/trinidad_sandbox_extension/app/views/layout.html.haml

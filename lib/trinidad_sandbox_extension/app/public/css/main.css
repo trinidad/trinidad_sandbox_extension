@@ -46,6 +46,19 @@ h2 {
   font-size: 3em;
 }
 
+#deploy form label {
+  float: left;
+  width: 7em;
+  text-align: right;
+  margin-right: .8em;
+  line-height: 1em;
+  color:#666666;
+}
+
+#deploy form button {
+  margin-left: 10em;
+}
+
 nav, section {
   display: block;
 }
@@ -108,7 +121,7 @@ nav, section {
   padding: 1em;
 }
 
-#content #applications {
+#content #applications, #content #deploy {
   margin: 1em 0px 2em;
   border-top: 1px solid silver;
 }

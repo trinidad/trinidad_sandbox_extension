@@ -87,21 +87,29 @@ post '/apps/:name/redeploy' do
 end
 
 get '/deploy' do
-  repo_url = params[:repo]
-  repo_not_found unless repo_url
-
-  branch = params[:branch] || 'master'
-  path = params[:path] || repo_url.split('/').last.sub('.git', '')
-
-  dest = File.expand_path(path, host.app_base)
-
-  status = if (deployed_app = ApplicationContext.find_by_doc_base(dest))
-    redeploy_application(deployed_app, repo_url, branch, dest)
-    204
-  else
-    deploy_new_application(path, repo_url, branch, dest)
-    201
+  respond_to do |wants|
+    wants.html { haml :deploy }
   end
+end
 
-  redirect_to_home status
+post '/deploy' do
+  repo_url = params["repo"]
+  if repo_url.empty?
+    repo_not_found
+  else
+    branch = params["branch"] || 'master'
+    path = params["path"] || repo_url.split('/').last.sub('.git', '')
+
+    dest = File.expand_path(path, host.app_base)
+
+    status = if (deployed_app = ApplicationContext.find_by_doc_base(dest))
+      redeploy_application(deployed_app, repo_url, branch, dest)
+      204
+    else
+      deploy_new_application(path, repo_url, branch, dest)
+      201
+    end
+
+    redirect_to_home status
+  end
 end
