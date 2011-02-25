@@ -93,23 +93,11 @@ get '/deploy' do
 end
 
 post '/deploy' do
-  repo_url = params["repo"]
-  if repo_url.empty?
-    repo_not_found
+  if params['payload']
+    deploy_from_web_hook(params)
+  elsif params['repo']
+    deploy_from_form(params)
   else
-    branch = params["branch"] || 'master'
-    path = params["path"] || repo_url.split('/').last.sub('.git', '')
-
-    dest = File.expand_path(path, host.app_base)
-
-    status = if (deployed_app = ApplicationContext.find_by_doc_base(dest))
-      redeploy_application(deployed_app, repo_url, branch, dest)
-      204
-    else
-      deploy_new_application(path, repo_url, branch, dest)
-      201
-    end
-
-    redirect_to_home status
+    redirect_to_home 204
   end
 end

@@ -41,7 +41,8 @@ Gem::Specification.new do |s|
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
   s.add_dependency('trinidad', '>=1.0.1')
-  ['sinatra', 'sinatra-authorization', 'sinatra-respond_to', 'sinatra-flash', 'haml', 'grit'].each do |dep|
+  ['sinatra', 'sinatra-authorization', 'sinatra-respond_to', 
+    'sinatra-flash', 'haml', 'grit', 'json'].each do |dep|
     s.add_dependency(dep)
   end
 
