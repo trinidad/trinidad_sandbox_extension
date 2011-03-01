@@ -15,12 +15,15 @@ set :views, File.expand_path('../views', __FILE__)
 
 Sinatra::Application.register Sinatra::RespondTo
 
-helpers {
+helpers do
   include Helpers::Auth
   include Helpers::Context
   include Helpers::Deploy
-}
-before { login_required }
+end
+
+before do
+  login_required if basic_auth_required?(request)
+end
 
 get '/' do
   redirect sandbox_context.path + '/apps'
@@ -93,6 +96,8 @@ get '/deploy' do
 end
 
 post '/deploy' do
+  token_required(params)
+
   if params['payload']
     deploy_from_web_hook(params)
   elsif params['repo']

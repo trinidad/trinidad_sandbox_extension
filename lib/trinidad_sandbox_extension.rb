@@ -42,9 +42,11 @@ module Trinidad
         app_ctx.privileged = true
 
         if opts[:username] && opts[:password]
-          app_ctx.servlet_context.setAttribute("sandbox_username", opts[:username].to_s);
-          app_ctx.servlet_context.setAttribute("sandbox_password", opts[:password].to_s);
+          app_ctx.servlet_context.set_attribute("sandbox_username", opts[:username].to_s);
+          app_ctx.servlet_context.set_attribute("sandbox_password", opts[:password].to_s);
         end
+
+        app_ctx.servlet_context.set_attribute('deploy_token', opts[:deploy_token]) if opts[:deploy_token]
 
         app_ctx
       end

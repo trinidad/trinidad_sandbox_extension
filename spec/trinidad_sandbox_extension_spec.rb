@@ -51,7 +51,17 @@ describe Trinidad::Extensions::SandboxServerExtension do
 
     app_ctx = ext.create_application_context(@tomcat, opts)
 
-    app_ctx.servlet_context.getAttribute('sandbox_username').should == 'foo'
-    app_ctx.servlet_context.getAttribute('sandbox_password').should == 'bar'
+    app_ctx.servlet_context.get_attribute('sandbox_username').should == 'foo'
+    app_ctx.servlet_context.get_attribute('sandbox_password').should == 'bar'
+  end
+
+  it 'stores the deploy token to use it for git deployment' do
+    opts = subject.prepare_options
+    opts[:deploy_token] = 'foobar'
+
+    ext = Trinidad::Extensions::SandboxServerExtension.new(opts)
+
+    app_ctx = ext.create_application_context(@tomcat, opts)
+    app_ctx.servlet_context.get_attribute('deploy_token').should == 'foobar'
   end
 end
