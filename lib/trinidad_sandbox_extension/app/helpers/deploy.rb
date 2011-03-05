@@ -50,7 +50,8 @@ module Trinidad
 
         def deploy_new_application(path, repo, branch, dest)
           clone(repo, branch, dest)
-          Trinidad::Sandbox::ApplicationContext.create(path, dest)
+          bundle(dest)
+          ApplicationContext.create(path, dest)
         end
 
         def redeploy_application(context, repo, branch, dest)
@@ -66,6 +67,12 @@ module Trinidad
         def clone(repo, branch, dest)
           Grit::Git.with_timeout(1000) do
             Grit::Git.new(dest).clone({:branch => branch}, repo, dest)
+          end
+        end
+
+        def bundle(dest)
+          Dir.chdir(dest) do
+            `jruby -S bundle install` if File.exist? 'Gemfile'
           end
         end
 
