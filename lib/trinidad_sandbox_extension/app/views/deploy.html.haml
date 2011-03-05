@@ -1,14 +1,12 @@
-#deploy
-  %form(action="#{sandbox_context.path}/deploy" method="post")
-    %ol
-      %li
-        %label(for = "repo") Git repository
-        %input(type="text" name="repo" id="repo")
-      %li
-        %label(for = "branch") Branch
-        %input(type="text" name="branch" id="branch")
-      %li
-        %label(for = "path") Path
-        %input(type="text" name="path" id="path")
-      %li
-        %button(type="submit") Deploy
+%form(action="#{sandbox_context.path}/deploy" method="post")
+  %div
+    %label(for = "repo") Repository url
+    %input(type="text" name="repo" id="repo" size="38")
+  %div
+    %label(for = "branch") Branch
+    %input(type="text" name="branch" id="branch" size="38")
+  %div
+    %label(for = "path") Path
+    %input(type="text" name="path" id="path" size="38")
+  %div
+    %button(type="submit" data-disable-with="Please wait...") Deploy

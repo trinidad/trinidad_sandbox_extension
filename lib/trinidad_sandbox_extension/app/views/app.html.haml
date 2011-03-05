@@ -1,8 +1,0 @@
-.application
-  %a(href = "#{app.self_path}" class="app_name")= app.name
-  = haml :actions, :locals => {:app => app}, :layout => false
-  - if app.parameters
-    #parameters
-      %ul
-      - app.parameters.each do |param_name|
-        %li= "#{param_name} => #{app.find_parameter(param_name)}"

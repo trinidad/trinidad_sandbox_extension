@@ -1,19 +1,22 @@
 %html
   %head
     %title Trinidad's sandbox
-    %link(rel="stylesheet" href="#{sandbox_context.path}/css/main.css" type="text/css")
+    %link(rel="stylesheet" href="#{sandbox_context.path}/css/sandbox.css" type="text/css")
   %body
+    #ribbon
+      %a(href="http://github.com/calavera/trinidad_sandbox_extension")
+        %img(style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets2.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_gray_6d6d6d.png&path=" alt="Fork me on GitHub")
     .site
-      #title
-        %h1 Trinidad's sandbox
-      #content
-        %section(id="menu")
-          %div
-            %nav
-              %a(href="apps") Applications
-              |
-              %a(href="deploy") Deploy
-        %section
-          %div
-            = styled_flash
-            = yield
+      %nav
+        %div
+          %h1 Trinidad
+          #nav
+            - if @page_id == 'deploy'
+              %a(class="nav" href="apps") Applications
+              %span(class="nav") Deploy
+            - else
+              %span(class="nav") Applications
+              %a(class="nav" href="deploy") Deploy
+      = styled_flash
+      %div(id="#{@page_id}" class="container")
+        = yield

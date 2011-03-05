@@ -11,10 +11,14 @@ module Trinidad
           if repo_url.empty?
             repo_not_found
           else
-            branch = params["branch"] || 'master'
-            path = params["path"] || path_from_repo(repo_url)
+            branch = params["branch"]
+            branch = 'master' if branch.empty?
 
-            status = find_and_deploy(repo_url, branch, path)
+            ssh = ssh_uri repo_url
+            path = params["path"]
+            path = path_from_repo(ssh) if path.empty?
+
+            status = find_and_deploy(ssh, branch, path)
 
             redirect_to_home status
           end
@@ -23,7 +27,7 @@ module Trinidad
         def deploy_from_web_hook(params)
           payload = JSON.parse(params['payload'])
           url = payload['repository']['url']
-          branch = payload['ref'].split('/').last
+          branch = File.basename payload['ref']
 
           ssh = ssh_uri url
           path = path_from_repo(ssh)
@@ -32,9 +36,10 @@ module Trinidad
         end
 
         def find_and_deploy(repo, branch, path)
-          dest = File.expand_path(path, host.app_base)
+          dest = File.join(host.app_base, path)
 
-          status = if (deployed_app = ApplicationContext.find_by_doc_base(dest))
+          deployed_app = ApplicationContext.find_by_doc_base(dest)
+          status = if deployed_app
             redeploy_application(deployed_app, repo, branch, dest)
             204
           else
@@ -65,6 +70,7 @@ module Trinidad
         end
 
         def ssh_uri(url)
+          return url if url =~ /^git@/
           uri = URI.parse(url)
 
           "git@#{uri.host}#{uri.path.sub('/', ':')}.git"

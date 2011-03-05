@@ -38,7 +38,7 @@ module Trinidad
           :jruby_max_runtimes => 1
         }, {
           :context_path => (url == 'default' ? '' : "/#{url}"),
-          :web_app_dir => path
+          :web_app_dir => File.basename(path)
         })
 
         context = Trinidad::Tomcat::StandardContext.new
@@ -87,7 +87,14 @@ module Trinidad
       end
 
       def parameters
-        @parameters ||= find_parameters
+        @parameters ||= begin
+          parameters = {}
+          find_parameters.each do |param|
+            value = find_parameter(param)
+            parameters[param] = value if !value.nil? && !value.empty?
+          end
+          parameters
+        end
       end
     end
   end

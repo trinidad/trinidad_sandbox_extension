@@ -3,6 +3,7 @@ require 'sinatra'
 require 'haml'
 require File.expand_path('../helpers/sandbox', __FILE__)
 require File.expand_path('../helpers/deploy', __FILE__)
+require File.expand_path('../helpers/view', __FILE__)
 require File.expand_path('../model/application_context', __FILE__)
 require 'sinatra/respond_to'
 require 'sinatra/flash'
@@ -19,6 +20,7 @@ helpers do
   include Helpers::Auth
   include Helpers::Context
   include Helpers::Deploy
+  include Helpers::View
 end
 
 before do
@@ -31,20 +33,11 @@ end
 
 get '/apps' do
   @applications = ApplicationContext.all
+  @page_id = 'applications'
 
   respond_to do |wants|
-    wants.html  { haml :index }
-    wants.xml   { haml :index }
-  end
-end
-
-get '/apps/:name' do
-  @app = ApplicationContext.find(params[:name])
-  context_not_found(params[:name]) unless @app
-
-  respond_to do |wants|
-    wants.html { haml :app }
-    wants.xml { haml :app }
+    wants.html  { haml :applications }
+    wants.xml   { haml :applications }
   end
 end
 
@@ -79,7 +72,7 @@ post '/apps/:name/start' do
   redirect_to_home 204
 end
 
-post '/apps/:name/redeploy' do
+post '/apps/:name/restart' do
   context = ApplicationContext.find(params[:name])
 
   context_not_found(params[:name]) unless context
@@ -90,6 +83,8 @@ post '/apps/:name/redeploy' do
 end
 
 get '/deploy' do
+  @page_id = 'deploy'
+
   respond_to do |wants|
     wants.html { haml :deploy }
   end
