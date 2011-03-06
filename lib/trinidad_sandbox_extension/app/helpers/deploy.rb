@@ -5,6 +5,7 @@ module Trinidad
         require 'grit'
         require 'json'
         require 'uri'
+        require 'fileutils'
 
         def deploy_from_form(params)
           repo_url = params["repo"]
@@ -56,7 +57,7 @@ module Trinidad
 
         def redeploy_application(context, repo, branch, dest)
           context.send(:setPaused, true)
-          Dir.delete dest
+          FileUtils.rm_rf File.expand_path(dest)
 
           clone(repo, branch, dest)
 

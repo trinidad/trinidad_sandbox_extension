@@ -28,7 +28,7 @@ module Trinidad
 
       def self.find_by_doc_base(base)
         if (apps = host.find_children)
-          apps.select {|app| app.doc_base == base}.first
+          apps.select {|app| app.doc_base == File.basename(base)}.first
         end
       end
 
