@@ -65,6 +65,7 @@ module Trinidad
 
         private
         def clone(repo, branch, dest)
+          Grit.debug = true
           Grit::Git.with_timeout(1000) do
             Grit::Git.new(dest).clone({:branch => branch}, repo, dest)
           end
