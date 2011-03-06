@@ -1,12 +1,15 @@
-%form(action="#{sandbox_context.path}/deploy" method="post")
-  %div
-    %label(for = "repo") Repository url
-    %input(type="text" name="repo" id="repo" size="38")
-  %div
-    %label(for = "branch") Branch
-    %input(type="text" name="branch" id="branch" size="38")
-  %div
-    %label(for = "path") Path
-    %input(type="text" name="path" id="path" size="38")
-  %div
-    %button(type="submit" data-disable-with="Please wait...") Deploy
+%div(id="deploy" class="container")
+  %form(action="#{sandbox_context.path}/deploy" method="post")
+    %div
+      %label(for = "repo") Repository url
+      %input(type="text" name="repo" id="repo" size="38")
+    %div
+      %label(for = "branch") Branch
+      %input(type="text" name="branch" id="branch" size="38")
+    %div
+      %label(for = "path") Path
+      %input(type="text" name="path" id="path" size="38")
+    %div
+      %button(type="submit" data-disable-with="Please wait...") Deploy
+#git-hook
+  %p Use http://HOST_NAME/sandbox/deploy?deploy_token=SECRET_DEPLOY_TOKEN as a Post-Receive URL on Github.

@@ -38,7 +38,8 @@ module Trinidad
           :jruby_max_runtimes => 1
         }, {
           :context_path => (url == 'default' ? '' : "/#{url}"),
-          :web_app_dir => File.basename(path)
+          :web_app_dir => File.basename(path),
+          :environment => 'production'
         })
 
         context = Trinidad::Tomcat::StandardContext.new

@@ -144,6 +144,17 @@ span.nav {
   margin-left: 22em;
 }
 
+#git-hook {
+  margin-top: 1em;
+  border: 1px solid #FF9900;
+  background: #FFFF99;
+}
+
+#git-hook p {
+  padding-left: .5em;
+  font-size: .8em;
+}
+
 form div {
   padding: .5em 1em;
 }

@@ -1,13 +1,14 @@
-- unless @applications.empty?
-  %ul
-    - @applications.each do |app|
-      %li(class="application")
-        %div(class="app #{app.state.to_s.downcase}")
-          %a(class="header" href="#{app.path}")= app.name
-          = haml :actions, :locals => {:app => app}, :layout => false
-          - unless app.parameters.empty?
-            .detail
-              %ul(class="parameters")
-                = render_parameters(app.parameters)
-- else
-  %p It seems there're not applications running on Trinidad. You can use Git to #{link_to_deploy} them without stopping the server.
+%div(id="applications" class="container")
+  - unless @applications.empty?
+    %ul
+      - @applications.each do |app|
+        %li(class="application")
+          %div(class="app #{app.state.to_s.downcase}")
+            %a(class="header" href="#{app.path}")= app.name
+            = haml :actions, :locals => {:app => app}, :layout => false
+            - unless app.parameters.empty?
+              .detail
+                %ul(class="parameters")
+                  = render_parameters(app.parameters)
+  - else
+    %p It seems there're not applications running on Trinidad. You can use Git to #{link_to_deploy} them without stopping the server.
