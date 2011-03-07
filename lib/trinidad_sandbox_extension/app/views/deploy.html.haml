@@ -1,5 +1,6 @@
 %div(id="deploy" class="container")
   %form(action="#{sandbox_context.path}/deploy" method="post")
+    %input(type="hidden" name="deploy_token" value="#{render_deploy_token}")
     %div
       %label(for = "repo") Repository url
       %input(type="text" name="repo" id="repo" size="38")
