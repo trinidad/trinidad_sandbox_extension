@@ -57,6 +57,10 @@ module Trinidad
           !!$servlet_context.getAttribute('enable_default')
         end
 
+        def git_ssh?
+          !!$servlet_context.getAttribute('git_ssh')
+        end
+
         def context_not_found(name)
           flash[:warning] = "application not found: #{name}"
           $servlet_context.log "application not found: #{name}"

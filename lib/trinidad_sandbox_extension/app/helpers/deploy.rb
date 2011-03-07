@@ -15,7 +15,7 @@ module Trinidad
             branch = params["branch"]
             branch = 'master' if branch.empty?
 
-            ssh = ssh_uri repo_url
+            ssh = normalize_uri repo_url
             path = params["path"]
             path = path_from_repo(ssh) if path.empty?
 
@@ -30,7 +30,7 @@ module Trinidad
           url = payload['repository']['url']
           branch = File.basename payload['ref']
 
-          ssh = ssh_uri url
+          ssh = normalize_uri url
           path = path_from_repo(ssh)
 
           status = find_and_deploy(ssh, branch, path)
@@ -78,11 +78,16 @@ module Trinidad
           end
         end
 
-        def ssh_uri(url)
-          return url if url =~ /^git@/
-          uri = URI.parse(url)
+        def normalize_uri(url)
+          normalized = if git_ssh?
+            return url if url =~ /^git@/
+            uri = URI.parse(url)
 
-          "git@#{uri.host}#{uri.path.sub('/', ':')}.git"
+            "git@#{uri.host}#{uri.path.sub('/', ':')}"
+          end || url
+
+          normalized << '.git' unless normalized =~ /\.git$/
+          normalized
         end
 
         def path_from_repo(repo)

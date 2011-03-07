@@ -49,12 +49,16 @@ module Trinidad
         app_ctx.servlet_context.set_attribute('deploy_token', opts[:deploy_token]) if opts[:deploy_token]
         app_ctx.servlet_context.set_attribute('host_name', opts[:host_name]) if opts[:host_name]
 
-        enable_default = opts[:enable_default]
-        enable_default = 'true' if enable_default.nil?
+        app_ctx.servlet_context.set_attribute('enable_default', boolean_option(opts[:enable_default]))
 
-        app_ctx.servlet_context.set_attribute('enable_default', enable_default)
+        app_ctx.servlet_context.set_attribute('git_ssh', boolean_option(opts[:git_ssh]))
 
         app_ctx
+      end
+
+      private
+      def boolean_option(option, default = true)
+        option.nil? ? default : option
       end
     end
 
