@@ -12,4 +12,4 @@
     %div
       %button(type="submit" data-disable-with="Please wait...") Deploy
 #git-hook
-  %p Use http://HOST_NAME/sandbox/deploy?deploy_token=SECRET_DEPLOY_TOKEN as a Post-Receive URL on Github.
+  %p Use <span>http://#{render_host_name}/sandbox/deploy?deploy_token=#{render_deploy_token}</span> as a Post-Receive URL on Github.

@@ -155,6 +155,11 @@ span.nav {
   font-size: .8em;
 }
 
+#git-hook p span {
+  font-weight: bold;
+  font-style: italic;
+}
+
 form div {
   padding: .5em 1em;
 }

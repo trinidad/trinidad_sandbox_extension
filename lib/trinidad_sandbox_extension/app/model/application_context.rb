@@ -11,9 +11,12 @@ module Trinidad
 
       def self.all
         apps = host ? host.find_children : []
-        apps.select {|app| app.name != sandbox_context.name }.
+        a = apps.select {|app| app.name != sandbox_context.name }.
           map {|app| ApplicationContext.new(app) }.
           sort {|app1, app2| app1.slug <=> app2.slug }
+
+        a = a.select {|app| app.name != 'default'} unless enable_default?
+        a
       end
 
       def self.find(name)

@@ -53,6 +53,10 @@ module Trinidad
           @sandbox_context ||= $servlet_context.getAttribute('sandbox_context')
         end
 
+        def enable_default?
+          !!$servlet_context.getAttribute('enable_default')
+        end
+
         def context_not_found(name)
           flash[:warning] = "application not found: #{name}"
           $servlet_context.log "application not found: #{name}"

@@ -21,6 +21,14 @@ module Trinidad
           render
         end
 
+        def render_host_name
+          $servlet_context.get_attribute('host_name') || 'HOST_NAME'
+        end
+
+        def render_deploy_token
+          $servlet_context.get_attribute('deploy_token') || 'SECRET_DEPLOY_TOKEN'
+        end
+
         private
         def find_column(parameters, index)
           (parameters.length / 2) > index ? 1 : 2
