@@ -177,3 +177,11 @@ input {
   border: 1px solid grey;
   color: #383838;
 }
+
+#flash {
+  border: 1px solid #b22222;
+  background: #E6BCB5;
+  color: #383838;
+  padding: 1em 1.5em;
+  margin-bottom: 1em;
+}

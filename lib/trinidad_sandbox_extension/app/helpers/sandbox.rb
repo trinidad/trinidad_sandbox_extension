@@ -62,15 +62,12 @@ module Trinidad
         end
 
         def context_not_found(name)
-          flash[:warning] = "application not found: #{name}"
-          $servlet_context.log "application not found: #{name}"
+          warning "It seems the application #{name} is not running on Trinidad"
           redirect_to_home 404
         end
 
         def repo_not_found
-          message = "the git repository is a mandatory parameter"
-          flash[:warning] = message
-          $servlet_context.log message
+          warning "The repository url is required to clone the application", :now
           respond_to do |wants|
             wants.html { haml :deploy }
             wants.xml { status 400 }
@@ -86,6 +83,11 @@ module Trinidad
             wants.html { redirect sandbox_context.path }
             wants.xml { status status_code }
           end
+        end
+
+        def warning(message, req = :next)
+          flash.send(req)[:warning] = message
+          $servlet_context.log message
         end
       end
     end
