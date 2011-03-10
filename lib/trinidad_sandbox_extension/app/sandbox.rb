@@ -1,7 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require File.expand_path('../helpers/sandbox', __FILE__)
+require File.expand_path('../helpers/auth', __FILE__)
+require File.expand_path('../helpers/context', __FILE__)
 require File.expand_path('../helpers/deploy', __FILE__)
 require File.expand_path('../helpers/view', __FILE__)
 require File.expand_path('../model/application_context', __FILE__)
