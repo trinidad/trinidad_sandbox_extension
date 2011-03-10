@@ -31,7 +31,7 @@ module Trinidad
         end
 
         def authorized_by_token?(params)
-          params[:deploy_token] == deploy_token
+          deploy_token.nil? || params[:deploy_token] == deploy_token
         end
 
         private
@@ -68,10 +68,12 @@ module Trinidad
 
         def repo_not_found
           warning "The repository url is required to clone the application", :now
-          respond_to do |wants|
-            wants.html { haml :deploy }
-            wants.xml { status 400 }
-          end
+          respond_to_invalid_deploy
+        end
+
+        def invalid_app_path(path)
+          warning "The path #{path} is not valid, please remove the slashes", :now
+          respond_to_invalid_deploy
         end
 
         def host
@@ -82,6 +84,14 @@ module Trinidad
           respond_to do |wants|
             wants.html { redirect sandbox_context.path }
             wants.xml { status status_code }
+          end
+        end
+
+        def respond_to_invalid_deploy
+          @page_id = 'deploy'
+          respond_to do |wants|
+            wants.html { haml :deploy }
+            wants.xml { status 400 }
           end
         end
 

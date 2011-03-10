@@ -17,11 +17,14 @@ module Trinidad
 
             ssh = normalize_uri repo_url
             path = params["path"]
-            path = path_from_repo(ssh) if path.empty?
+            path = path_from_repo(ssh) if path.empty? && !enable_default?
 
-            status = find_and_deploy(ssh, branch, path)
-
-            redirect_to_home status
+            unless valid_path? path
+              invalid_app_path(path)
+            else
+              status = find_and_deploy(ssh, branch, path)
+              redirect_to_home status
+            end
           end
         end
 
@@ -92,6 +95,10 @@ module Trinidad
 
         def path_from_repo(repo)
           repo.split('/').last.sub('.git', '')
+        end
+
+        def valid_path?(path)
+          path.split('/').length == 1
         end
       end
     end
