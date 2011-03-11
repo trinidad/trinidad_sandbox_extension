@@ -52,6 +52,11 @@ module Trinidad
           flash.send(req)[:warning] = message
           $servlet_context.log message
         end
+
+        def available_context?(context)
+          context.name != sandbox_context.name || enable_default? ||
+            (!enable_default? && context.name == 'default')
+        end
       end
     end
   end

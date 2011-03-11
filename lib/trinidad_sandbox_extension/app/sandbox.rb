@@ -47,8 +47,7 @@ post '/apps/:name/stop' do
 
   context_not_found(params[:name]) unless context
 
-  if context.name == sandbox_context.name ||
-      (!enable_default? && context.name == 'default')
+  unless available_context?(context)
     $servet_context.log "can't stop the application"
     redirect_to_home 500
   end
@@ -79,8 +78,7 @@ post '/apps/:name/restart' do
 
   context_not_found(params[:name]) unless context
 
-  if context.name == sandbox_context.name ||
-      (!enable_default? && context.name == 'default')
+  unless available_context?(context)
     $servet_context.log "can't restart the application"
     redirect_to_home 500
   end
