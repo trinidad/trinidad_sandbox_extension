@@ -86,7 +86,7 @@ module Trinidad
         [
           {:rel => 'start', :href => "#{self_path}/start"},
           {:rel => 'stop', :href => "#{self_path}/stop"},
-          {:rel => 'redeploy', :href => "#{self_path}/redeploy"}
+          {:rel => 'restart', :href => "#{self_path}/restart"}
         ]
       end
 
