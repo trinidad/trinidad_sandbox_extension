@@ -25,7 +25,10 @@ helpers do
 end
 
 before do
-  login_required if basic_auth_required?(request)
+  login_required if !readonly? && basic_auth_required?(request)
+
+  render_readonly if readonly? &&
+    (request.method.downcase != 'get' || request.path =~ /deploy$/)
 end
 
 get '/' do

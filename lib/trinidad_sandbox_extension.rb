@@ -53,6 +53,8 @@ module Trinidad
 
         app_ctx.servlet_context.set_attribute('git_ssh', boolean_option(opts[:git_ssh]))
 
+        app_ctx.servlet_context.set_attribute('readonly', boolean_option(opts[:readonly]))
+
         app_ctx
       end
 

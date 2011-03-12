@@ -14,6 +14,15 @@ module Trinidad
           !!$servlet_context.getAttribute('git_ssh')
         end
 
+        def readonly?
+          !!$servlet_context.get_attribute('readonly')
+        end
+
+        def render_readonly
+          warning "The console has been started as READONLY, you can access to that resource"
+          redirect_to_home 401
+        end
+
         def context_not_found(name)
           warning "It seems the application #{name} is not running on Trinidad"
           redirect_to_home 404

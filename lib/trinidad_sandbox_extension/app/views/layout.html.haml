@@ -10,13 +10,7 @@
       %nav
         %div
           %h1 Trinidad
-          #nav
-            - if @page_id == 'deploy'
-              %a(class="nav" href="apps") Applications
-              %span(class="nav") Deploy
-            - else
-              %span(class="nav") Applications
-              %a(class="nav" href="deploy") Deploy
+          = haml :navigation, :layout => false
       = styled_flash
       %div
         = yield

@@ -1,0 +1,10 @@
+#nav
+  - unless readonly?
+    - if @page_id == 'deploy'
+      %a(class="nav" href="apps") Applications
+      %span(class="nav") Deploy
+    - else
+      %span(class="nav") Applications
+      %a(class="nav" href="deploy") Deploy
+  - else
+    %span(class="nav") Applications
