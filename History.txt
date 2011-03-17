@@ -1,3 +1,9 @@
+== 1.0.0 (2011-03-17)
+
+* New design
+* Git based deployment
+* Readonly mode
+
 == 0.4.2 (2010-12-21)
 
 * Fix application name when the context path is an empty string

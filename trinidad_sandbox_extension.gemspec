@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'trinidad_sandbox_extension'
-  s.version           = '1.0.0.dev'
+  s.version           = '1.0.0'
   s.date              = '2011-03-17'
   s.rubyforge_project = 'trinidad_sandbox_extension'
 
@@ -62,6 +62,7 @@ Gem::Specification.new do |s|
     LICENSE
     README
     Rakefile
+    git-hooks/post-commit
     lib/trinidad_sandbox_extension.rb
     lib/trinidad_sandbox_extension/app/helpers/auth.rb
     lib/trinidad_sandbox_extension/app/helpers/context.rb
