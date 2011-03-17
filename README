@@ -36,11 +36,38 @@ It also supports basic authentication, we'll have to specify the username and pa
       username: manager
       password: XXXXXXX
 
+We can also use the console in readonly mode, so users can see the applications deployed but they cannot deploy new ones or modify them:
+
+--- 
+  extensions:
+    sandbox:
+      readonly: true
+
 # FEATURES
 
 The console as well as the REST api allow to list all the applications managed by that Trinidad's instance and start/stop them.
 By security reasons the sandbox application is not listed nor can be stopped.
 
+# GIT DEPLOYMENT
+
+The sandbox console also allows to deploy new applications into Trinidad via Git. By default it uses ssh keys to access to the repository with the user `git`.
+
+We can also use git hooks to deploy applications via a POST-Receive callback. 
+In this case we use a token for authentication that must be set in the configuration, then we'll use an url like we show bellow in our hook:
+
+---
+  extensions:
+    sandbox:
+      deploy_token: ULTRA_SECRET_TOKEN
+
+POST-Receive url: http://host/sandbox/deploy?deploy_token=ULTRA_SECRET_TOKEN
+
+If we want to let users to deploy applications in public git repositories we can also disable the ssh authentication with the option `git_ssh`:
+
+---
+  extensions:
+    sandbox:
+      git_ssh: false
 
 # TODO
 
