@@ -28,7 +28,7 @@ before do
   login_required if !readonly? && basic_auth_required?(request)
 
   render_readonly if readonly? &&
-    (request.method.downcase != 'get' || request.path =~ /deploy$/)
+    (!request.get? || request.path =~ /deploy$/)
 end
 
 get '/' do
