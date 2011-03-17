@@ -5,12 +5,12 @@ include FileUtils
 TARGET_DIR = 'target'
 LIBS_DIR = 'trinidad-libs'
 JAR_NAME = 'trinidad-sandbox-extension.jar'
+DEST_FILE = File.join(LIBS_DIR, JAR_NAME)
 
 namespace :ant do
   desc 'Clean the java target directory'
   task :clean do
     rm_f TARGET_DIR
-    rm_f "#{LIBS_DIR}/#{JAR_NAME}"
   end
 
   desc 'Compile the java classes'
@@ -30,7 +30,7 @@ namespace :ant do
   desc 'Create the jar file'
   task :build => :compile do
     opts = {
-      :destfile => "#{LIBS_DIR}/#{JAR_NAME}",
+      :destfile => DEST_FILE,
       :basedir => TARGET_DIR
     }
     ant.jar(opts)
