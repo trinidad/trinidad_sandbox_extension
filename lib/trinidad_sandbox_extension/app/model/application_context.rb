@@ -2,7 +2,7 @@ require 'delegate'
 require 'cgi'
 require 'trinidad'
 
-require File.expand_path('../../helpers/sandbox', __FILE__)
+require File.expand_path('../../helpers/context', __FILE__)
 
 module Trinidad
   module Sandbox
