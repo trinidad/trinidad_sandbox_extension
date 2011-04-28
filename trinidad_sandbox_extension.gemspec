@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   ## that are needed for an end user to actually USE your code.
   s.add_dependency('trinidad', '>=1.0.1')
   ['sinatra', 'sinatra-authorization', 'sinatra-respond_to', 
-    'sinatra-flash', 'haml', 'grit', 'json'].each do |dep|
+    'sinatra-flash', 'haml', 'grit', 'json', 'gitable'].each do |dep|
     s.add_dependency(dep)
   end
 

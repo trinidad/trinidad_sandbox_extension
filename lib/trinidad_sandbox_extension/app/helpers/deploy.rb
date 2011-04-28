@@ -4,7 +4,7 @@ module Trinidad
       module Deploy
         require 'grit'
         require 'json'
-        require 'uri'
+        require 'gitable/uri'
         require 'fileutils'
 
         def deploy_from_form(params)
@@ -82,19 +82,11 @@ module Trinidad
         end
 
         def normalize_uri(url)
-          normalized = if git_ssh?
-            return url if url =~ /^git@/
-            uri = URI.parse(url)
-
-            "git@#{uri.host}#{uri.path.sub('/', ':')}"
-          end || url
-
-          normalized << '.git' unless normalized =~ /\.git$/
-          normalized
+          Gitable::URI.heuristic_parse(url).to_s
         end
 
         def path_from_repo(repo)
-          repo.split('/').last.sub('.git', '')
+          Gitable::URI.heuristic_parse(url).project_name
         end
 
         def valid_path?(path)
