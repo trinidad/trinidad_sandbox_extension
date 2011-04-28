@@ -10,10 +10,6 @@ module Trinidad
           !!$servlet_context.getAttribute('enable_default')
         end
 
-        def git_ssh?
-          !!$servlet_context.getAttribute('git_ssh')
-        end
-
         def readonly?
           !!$servlet_context.get_attribute('readonly')
         end
