@@ -1,3 +1,7 @@
+== 1.0.2 (2011-05-05)
+
+* Use gitable to find the right git repository url
+
 == 1.0.1 (2011-03-27)
 
 * Fix error rendering xml format
