@@ -61,15 +61,3 @@ In this case we use a token for authentication that must be set in the configura
       deploy_token: ULTRA_SECRET_TOKEN
 
 POST-Receive url: http://host/sandbox/deploy?deploy_token=ULTRA_SECRET_TOKEN
-
-If we want to let users to deploy applications in public git repositories we can also disable the ssh authentication with the option `git_ssh`:
-
----
-  extensions:
-    sandbox:
-      git_ssh: false
-
-# TODO
-
-This can be the starting point to a real management console, we could modify application parameters, show statistics...
-Any improvement or redesign in the UI is welcome.
