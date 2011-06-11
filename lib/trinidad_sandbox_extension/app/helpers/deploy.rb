@@ -77,7 +77,7 @@ module Trinidad
 
         def bundle(dest)
           Dir.chdir(dest) do
-            `jruby -S bundle install` if File.exist? 'Gemfile'
+            `bundle install --binstubs binstubs --path bundled_gem --deployment` if File.exist? 'Gemfile'
           end
         end
 
